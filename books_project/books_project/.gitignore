@@ -1,0 +1,10 @@
+*.pyc
+__pycache__/
+db.sqlite3
+myvenv/  # Or your virtual environment name
+*.log
+*.swp
+.DS_Store
+local_settings.py
+/static
+*.env
