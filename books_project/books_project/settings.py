@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -55,7 +58,7 @@ ROOT_URLCONF = 'books_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'booklist/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -122,3 +125,11 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+sentry_sdk.init(
+    dsn="https://0bfb622c3f19f40eb5611d7613f790b0@o4509009221320704.ingest.us.sentry.io/4509031507755008",  # Replace with your actual DSN from Sentry
+    integrations=[DjangoIntegration()],
+    traces_sample_rate=1.0,  # Adjust sampling rate as needed
+    send_default_pii=True
+)
